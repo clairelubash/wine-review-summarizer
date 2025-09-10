@@ -4,19 +4,19 @@ To explore the feasibility of using generative AI to create summarized wine revi
 
 ### Methodology
 1. Data Preparation
-- Loaded and cleaned a raw wine review dataset (50,000 sampled records from ~17.8M lines).
-- Removed duplicates, missing values, and unnecessary columns.
-- Converted review scores into rating bands (e.g., "85-89 (Very Good)").
+    - Loaded and cleaned a raw wine review dataset (50,000 sampled records from ~17.8M lines).
+    - Removed duplicates, missing values, and unnecessary columns.
+    - Converted review scores into rating bands (e.g., `"85-89 (Very Good)"`).
 
 2. Grouping Reviews
-- Reviews were grouped by wine variant and rating band.
-- Only groups with at least 5 reviews were considered for summarization to ensure meaningful content.
+    - Reviews were grouped by wine variant and rating band.
+    - Only groups with at least 5 reviews were considered for summarization to ensure meaningful content.
 
 3. Summarization Pipeline
-- Used the Facebook BART Large CNN model to generate summaries.
-- Each group of reviews was chunked to handle token limits (max 900 tokens per chunk).
-- Summaries were generated with `min_length=30` and `max_length=80` to balance detail and conciseness.
-- Multiple chunks per group were re-summarized to produce a final coherent summary.
+    - Used the Facebook BART Large CNN model to generate summaries.
+    - Each group of reviews was chunked to handle token limits (max 900 tokens per chunk).
+    - Summaries were generated with `min_length=30` and `max_length=80` to balance detail and conciseness.
+    - Multiple chunks per group were re-summarized to produce a final coherent summary.
 
 ### Results
 **Sample Summaries (5 Groups):**
@@ -41,35 +41,25 @@ To explore the feasibility of using generative AI to create summarized wine revi
 ### Observations & Commentary
 
 - Summaries were coherent and informative, often capturing key tasting notes and wine characteristics.
-
 - Chunking helped handle longer groups but occasionally caused minor repetition.
-
 - Sampling 50,000 records and filtering groups reduced computational cost while maintaining meaningful coverage.
-
 - The approach demonstrates that generative AI can create customer-facing summaries for wine reviews efficiently.
 
 
 ### Next Steps / Recommendations
 
 1. Scalability
-
-- Consider summarizing all groups using batching and GPU acceleration for production.
-
-- Explore longer-context models to handle reviews with >1024 tokens without chunking.
+    - Consider summarizing all groups using batching and GPU acceleration for production.
+    - Explore longer-context models to handle reviews with >1024 tokens without chunking.
 
 2. Quality & Usability
-
-- Test summaries with actual users for readability and usefulness.
-
-- Include metadata like wine year, region, or alcohol content in summaries for richer guidance.
+    - Test summaries with actual users for readability and usefulness.
+    - Include metadata like wine year, region, or alcohol content in summaries for richer guidance.
 
 3. Automation & Updates
-
-- Integrate a pipeline to automatically update summaries as new reviews are added.
+    - Integrate a pipeline to automatically update summaries as new reviews are added.
 
 4. Additional Enhancements
-
-- Tailor summaries for different customer profiles (e.g., novice vs. expert).
-
-- Highlight positive/negative sentiment in a structured way (e.g., taste, aroma, finish).
+    - Tailor summaries for different customer profiles (e.g., novice vs. expert).
+    - Highlight positive/negative sentiment in a structured way (e.g., taste, aroma, finish).
 
